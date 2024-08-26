@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "line-provider"
+version = "0.1.0"
+description = ""
+authors = ["Andrey Kazackov <AndreyKazackoB@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+uvicorn = {extras = ["standard"], version = "^0.30.6"}
+fastapi = "^0.112.1"
+pydantic-settings = "^2.4.0"
+ruff = "^0.6.2"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
