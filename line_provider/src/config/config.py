@@ -14,6 +14,9 @@ class Settings(BaseSettings):
     HOST: str
     PORT: int
 
+    AMQP_USER: str
+    AMQP_PASS: str
+    AMQP_HOST: str
     
     model_config = SettingsConfigDict(env_file=".env")
 

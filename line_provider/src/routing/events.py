@@ -2,6 +2,7 @@ import time
 
 from fastapi import APIRouter, HTTPException
 from data.events import events
+from rmq_server.publisher import set_task
 from schemas.events import Event
 from config.enums import EventStateEnum
 
@@ -31,6 +32,12 @@ async def get_event(event_id: str):
 @events_router.get('/events')
 async def get_events():
     return list(e for e in events.values() if time.time() < e.deadline)
+
+
+@events_router.get('/send_task')
+async def get_events():
+    await set_task()
+    return 'Готово'
 
 
 @events_router.get('/finished_events')
