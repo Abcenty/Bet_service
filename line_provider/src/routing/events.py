@@ -3,7 +3,6 @@ import time
 from fastapi import APIRouter, HTTPException
 from data.events import events
 from schemas.events import Event
-from config.enums import EventStateEnum
 
 events_router = APIRouter()
 
@@ -30,9 +29,9 @@ async def get_event(event_id: str):
 
 @events_router.get('/events')
 async def get_events():
-    return list(e for e in events.values() if time.time() < e.deadline)
+    return list(e.model_dump() for e in events.values() if time.time() < e.deadline)
 
 
-@events_router.get('/finished_events')
-async def get_finished_events():
-    return list(e for e in events.values() if e.state == EventStateEnum.FINISHED_WIN or e.state == EventStateEnum.FINISHED_LOSE) 
+# @events_router.get('/finished_events')
+# async def get_finished_events():
+#     return list(e.model_dump() for e in events.values() if e.state == EventStateEnum.FINISHED_WIN or e.state == EventStateEnum.FINISHED_LOSE) 

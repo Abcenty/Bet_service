@@ -22,6 +22,10 @@ class Settings(BaseSettings):
     
     PROVIDER_HOST: str
     PROVIDER_PORT: int
+    
+    AMQP_USER: str
+    AMQP_PASS: str
+    AMQP_HOST: str
 
     @property
     def DATABASE_URL_asyncpg(self):
