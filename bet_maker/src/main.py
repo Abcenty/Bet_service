@@ -4,12 +4,11 @@ from rmq_client.consumer import consume
 from tasks.closing_bets import closing_bets
 from config.config import settings
 from app import app
-from fastapi import BackgroundTasks
 
 
 # @app.on_event('startup')
-# async def start(background_tasks: BackgroundTasks = BackgroundTasks()):
-#     background_tasks.add_task(func=consume) # noqa
+# async def start():
+#     task_1 = asyncio.create_task(consume()) # noqa
 
 
 # async def main():

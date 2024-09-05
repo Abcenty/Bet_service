@@ -17,8 +17,7 @@ events_router = APIRouter()
 
 @events_router.get('/get_events')
 async def get_events():
-    await consume()
-    return 'Готово'
+    return await consume()
         
         
 @events_router.get('/get_finished_events')

@@ -1,7 +1,7 @@
-import enum
+from enum import Enum
 
-class EventStateEnum(enum.Enum):
-    NEW = 'NEW'
-    FINISHED_WIN = 'FINISHED_WIN'
-    FINISHED_LOSE = 'FINISHED_LOSE'
-    DONE = "DONE"
+class EventStateEnum(str, Enum):
+    NEW: str = 'NEW'
+    FINISHED_WIN: str = 'FINISHED_WIN'
+    FINISHED_LOSE: str = 'FINISHED_LOSE'
+    DONE: str = "DONE"

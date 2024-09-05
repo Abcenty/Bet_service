@@ -1,8 +1,9 @@
 import asyncio
-import sys
 
-from aio_pika import DeliveryMode, ExchangeType, Message, connect
+import json
+from aio_pika import Message, connect
 from aiormq import AMQPConnectionError
+from routing.events import get_events
 
 from config.config import settings
 
@@ -22,26 +23,12 @@ async def set_task() -> None:
                 await asyncio.sleep(2)  # Ждем перед следующей попыткой
             else:
                 raise
-            
+    events = await get_events()
     async with connection:
         channel = await connection.channel()
-
-        logs_exchange = await channel.declare_exchange(
-            "logs", ExchangeType.FANOUT,
-        )
-
-        message_body = b" ".join(
-            arg.encode() for arg in sys.argv[1:]
-        ) or b"Hello World!"
-
-        message = Message(
-            message_body,
-            delivery_mode=DeliveryMode.PERSISTENT,
-        )
-
-        # Sending the message
-        await logs_exchange.publish(message, routing_key="info")
-
-        print(f" [x] Sent {message!r}")
-        
-        await asyncio.sleep(3)
+        while True:
+            await channel.default_exchange.publish(
+                Message(body=json.dumps(events).encode()),
+                routing_key='service_b_queue'
+            )
+            await asyncio.sleep(5)
